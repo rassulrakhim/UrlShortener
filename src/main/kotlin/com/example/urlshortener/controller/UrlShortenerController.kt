@@ -24,7 +24,7 @@ class UrlShortenerController(
 
     /**
      * GET /{shortUrl}
-     * Redirects to the original URL.
+     * Redirects to the original URL.sho
      */
     @GetMapping("/{shortUrl}")
     fun redirectToOriginal(@PathVariable shortUrl: String): RedirectView {
