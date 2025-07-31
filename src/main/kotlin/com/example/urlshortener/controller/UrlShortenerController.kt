@@ -4,7 +4,6 @@ package com.example.urlshortener.controller
 import com.example.urlshortener.service.UrlShortenerService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.view.RedirectView
 
 @RestController
 @RequestMapping("/api")
@@ -27,9 +26,9 @@ class UrlShortenerController(
      * Redirects to the original URL.sho
      */
     @GetMapping("/{shortUrl}")
-    fun redirectToOriginal(@PathVariable shortUrl: String): RedirectView {
+    fun redirectToOriginal(@PathVariable shortUrl: String): String {
         val originalUrl = urlShorteningService.getUrl(shortUrl)
-        return RedirectView(originalUrl)
+        return originalUrl
     }
 
 
