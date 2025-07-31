@@ -5,6 +5,7 @@ import com.example.urlshortener.repository.UrlMappingRepository
 import com.example.urlshortener.service.generator.ShortUrlGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -34,6 +35,7 @@ class UrlShortenerServiceImpl() : UrlShortenerService {
         return shortUrl
     }
 
+    @Cacheable("shortUrl")
     override fun getUrl(shortUrl: String): String {
         val urlMapping = urlMappingRepository.findByIdOrNull(shortUrl)
             ?: throw IllegalArgumentException("Short URL not found: $shortUrl")
