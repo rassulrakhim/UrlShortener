@@ -1,9 +1,13 @@
+val testcontainersVersion = "1.19.0"
+val detektVersion = "1.23.6"
+
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.spring") version "1.9.23"
     id("org.springframework.boot") version "3.5.4"
     id("io.spring.dependency-management") version "1.1.7"
-    kotlin("plugin.jpa") version "1.9.25"
+    kotlin("plugin.jpa") version "1.9.23"
+    id("io.gitlab.arturbosch.detekt") version "1.23.6"
 }
 
 group = "com.example"
@@ -32,7 +36,7 @@ sourceSets {
         runtimeClasspath += output + compileClasspath
     }
 }
-val testcontainersVersion = "1.19.0"
+
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -41,6 +45,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
+
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -75,6 +81,13 @@ tasks.register<Test>("integrationTest") {
 
     useJUnitPlatform()
     shouldRunAfter(tasks.test)
+}
+
+detekt {
+    toolVersion = detektVersion // should match plugin version
+    buildUponDefaultConfig = true // use detekt default rules as base
+    allRules = false // enable all rules or keep false to avoid too many errors
+    parallel = true
 }
 
 

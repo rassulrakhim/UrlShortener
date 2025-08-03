@@ -1,6 +1,5 @@
 package com.example.urlshortener.service.generator
 
-
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
@@ -8,7 +7,8 @@ import java.security.SecureRandom
 
 @Component
 @Primary
-class RandomShortUrlGenerator(@Value("\${url-shortener.short-url-length}") private val shortUrlLength: Int) : ShortUrlGenerator {
+class RandomShortUrlGenerator(@Value("\${url-shortener.short-url-length}") private val shortUrlLength: Int) :
+    ShortUrlGenerator {
 
     companion object {
         private const val CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
