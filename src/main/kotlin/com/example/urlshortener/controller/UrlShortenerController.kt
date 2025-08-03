@@ -22,7 +22,7 @@ class UrlShortenerController(
      * POST /api/shorten
      * Accepts a URL and returns the shortened key.
      */
-    @PostMapping("/shorten")
+    @PostMapping
     fun shortenUrl(@RequestBody url: String): ResponseEntity<String> {
         val shortUrlKey = urlShorteningService.shortenUrl(url)
         return ResponseEntity.ok(shortUrlKey)

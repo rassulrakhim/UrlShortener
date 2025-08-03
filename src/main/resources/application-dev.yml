@@ -11,7 +11,7 @@ spring:
     show-sql: true
 
 url-shortener:
-  api-path: /api/url
+  api-path: /api/url/short
   short-url-length: 6
   cache-ttl-minutes: 10
 

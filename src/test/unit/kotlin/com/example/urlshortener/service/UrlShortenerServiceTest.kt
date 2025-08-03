@@ -11,13 +11,11 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
-import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDateTime
 import java.util.*
 
 @ExtendWith(MockitoExtension::class)
-@SpringBootTest
-class UrlShortenerServiceImplTest {
+class UrlShortenerServiceTest {
 
     @Mock
     lateinit var urlMappingRepository: UrlMappingRepository
@@ -26,7 +24,7 @@ class UrlShortenerServiceImplTest {
     lateinit var shortUrlGenerator: ShortUrlGenerator
 
     @InjectMocks
-    lateinit var service: UrlShortenerServiceImpl
+    lateinit var service: UrlShortenerService
 
     companion object{
         const val DEFAULT_SHORT_URL = "abc123"

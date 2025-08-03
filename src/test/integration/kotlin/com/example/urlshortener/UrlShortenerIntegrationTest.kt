@@ -23,6 +23,7 @@ class UrlShortenerIntegrationTest(
         private val redis = GenericContainer("redis:7").apply {
             withExposedPorts(6379)
         }
+        const val API_PATH = "/api/url/short"
 
 
         private val postgres = PostgreSQLContainer<Nothing>("postgres:16").apply {
@@ -69,12 +70,12 @@ class UrlShortenerIntegrationTest(
     fun `should create short URL and cache it in Redis`() {
         // Create short url with POST
         val response =
-            restTemplate.postForEntity("/api/url/shorten", mapOf("url" to "https://example.com"), String::class.java)
+            restTemplate.postForEntity(API_PATH, mapOf("url" to "https://example.com"), String::class.java)
         assertEquals(200, response.statusCode.value())
         val shortUrl = response.body!!
 
         // Retrieve short url with GET
-        val getResponse = restTemplate.getForEntity("/api/url/$shortUrl", String::class.java)
+        val getResponse = restTemplate.getForEntity("$API_PATH/$shortUrl", String::class.java)
         assertEquals(200, getResponse.statusCode.value())
 
         // Check short url was cached
