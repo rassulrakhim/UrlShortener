@@ -21,10 +21,6 @@ class UrlShortenerServiceImpl() : UrlShortenerService {
     @Autowired
     private lateinit var urlMappingRepository: UrlMappingRepository
 
-    @Value("\${url-shortener.short-url-length}")
-    private var shortUrlLength: Int = 6
-
-
     override fun shortenUrl(url: String): String {
         return urlMappingRepository.findByUrl(url)?.shortUrl ?: createUrlMapping(url)
     }
@@ -32,7 +28,7 @@ class UrlShortenerServiceImpl() : UrlShortenerService {
     private fun createUrlMapping(url:String): String{
         var shortUrl: String
         do {
-            shortUrl = shortUrlGenerator.generateShortUrl(shortUrlLength)
+            shortUrl = shortUrlGenerator.generateShortUrl()
         } while (urlMappingRepository.existsById(shortUrl))
         val urlMapping = UrlMapping(shortUrl = shortUrl, url = url, createdAt = LocalDateTime.now())
         urlMappingRepository.save(urlMapping)

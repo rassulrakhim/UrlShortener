@@ -51,7 +51,7 @@ class UrlShortenerServiceImplTest {
         val url = "https://nohello.net"
 
         `when`(urlMappingRepository.findByUrl(url)).thenReturn(null)
-        `when`(shortUrlGenerator.generateShortUrl(6)).thenReturn(DEFAULT_SHORT_URL)
+        `when`(shortUrlGenerator.generateShortUrl()).thenReturn(DEFAULT_SHORT_URL)
         `when`(urlMappingRepository.existsById(DEFAULT_SHORT_URL)).thenReturn(false)
 
         val result = service.shortenUrl(url)

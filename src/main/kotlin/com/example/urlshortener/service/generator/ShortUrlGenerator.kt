@@ -3,7 +3,7 @@ package com.example.urlshortener.service.generator
 interface ShortUrlGenerator {
 
     /**
-     * Generate short url with given length.
+     * Generate short url.
      */
-    fun generateShortUrl(length: Int): String
+    fun generateShortUrl(): String
 }
