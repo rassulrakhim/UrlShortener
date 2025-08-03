@@ -24,8 +24,7 @@ class UrlShortenerController(
      */
     @PostMapping
     fun shortenUrl(@RequestBody url: String): ResponseEntity<String> {
-        val shortUrlKey = urlShorteningService.shortenUrl(url)
-        return ResponseEntity.ok(shortUrlKey)
+        return ResponseEntity.ok(urlShorteningService.shortenUrl(url))
     }
 
     /**
@@ -34,7 +33,6 @@ class UrlShortenerController(
      */
     @GetMapping("/{shortUrl}")
     fun redirectToOriginal(@PathVariable shortUrl: String): String {
-        val originalUrl = urlShorteningService.getUrl(shortUrl)
-        return originalUrl
+        return urlShorteningService.getUrl(shortUrl)
     }
 }
