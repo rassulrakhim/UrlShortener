@@ -11,6 +11,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDateTime
 import java.util.*
 
@@ -63,11 +64,11 @@ class UrlShortenerServiceTest {
         val shortUrl = "not-found"
         `when`(urlMappingRepository.findById(shortUrl)).thenReturn(Optional.empty())
 
-        val ex = assertThrows(IllegalArgumentException::class.java) {
+        val ex = assertThrows(ResponseStatusException::class.java) {
             service.getUrl(shortUrl)
         }
 
-        assertTrue(ex.message!!.contains("Short URL not found"))
+        assertTrue(ex.message.contains("Short URL not found"))
     }
 
     @Test

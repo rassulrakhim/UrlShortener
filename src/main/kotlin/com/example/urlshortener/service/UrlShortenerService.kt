@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDateTime
 
 /**
@@ -40,7 +42,7 @@ class UrlShortenerService {
     @Cacheable("shortUrl")
     fun getUrl(shortUrl: String): String {
         val urlMapping = urlMappingRepository.findByIdOrNull(shortUrl)
-            ?: throw IllegalArgumentException("Short URL not found: $shortUrl")
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Short URL not found: $shortUrl")
         return urlMapping.url
     }
 }
