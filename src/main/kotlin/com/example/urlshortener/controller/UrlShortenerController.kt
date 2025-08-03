@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Rest Controller for creating and retrieving urls.
+ */
 @RestController
 @RequestMapping("\${url-shortener.api-path}")
 class UrlShortenerController(

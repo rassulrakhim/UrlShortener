@@ -10,6 +10,9 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
+/**
+ * Implementation of UrlShortenerService.
+ */
 @Service
 class UrlShortenerServiceImpl : UrlShortenerService {
 

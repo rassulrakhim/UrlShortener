@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 import java.security.SecureRandom
 
+/**
+ * Primary/Default short url generator.
+ * @property CHARS set of allowed chars.
+ */
 @Component
 @Primary
 class RandomShortUrlGenerator(@Value("\${url-shortener.short-url-length}") private val shortUrlLength: Int) :

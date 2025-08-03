@@ -6,6 +6,9 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
+/**
+ * Data class represents Url mapping to short url aka id.
+ */
 @Entity
 @Table(name = "url_mappings")
 data class UrlMapping(

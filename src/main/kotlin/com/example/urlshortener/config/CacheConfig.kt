@@ -10,6 +10,9 @@ import org.springframework.data.redis.cache.RedisCacheManager
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import java.time.Duration
 
+/**
+ * Cache configuration including ttl in minutes.
+ */
 @Configuration
 @EnableCaching
 class CacheConfig(@Value("\${url-shortener.cache-ttl-minutes}") private val cacheTTLMinutes: Long) {

@@ -2,6 +2,9 @@ package com.example.urlshortener.service
 
 import org.springframework.stereotype.Service
 
+/**
+ * Functional interface for UrlShortenerService.
+ */
 @Service
 interface UrlShortenerService {
 
