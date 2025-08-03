@@ -5,6 +5,7 @@ import com.example.urlshortener.repository.UrlMappingRepository
 import com.example.urlshortener.service.generator.ShortUrlGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -20,6 +21,9 @@ class UrlShortenerServiceImpl() : UrlShortenerService {
     @Autowired
     private lateinit var urlMappingRepository: UrlMappingRepository
 
+    @Value("\${url-shortener.short-url-length}")
+    private var shortUrlLength: Int = 6
+
 
     override fun shortenUrl(url: String): String {
         return urlMappingRepository.findByUrl(url)?.shortUrl ?: createUrlMapping(url)
@@ -28,7 +32,7 @@ class UrlShortenerServiceImpl() : UrlShortenerService {
     private fun createUrlMapping(url:String): String{
         var shortUrl: String
         do {
-            shortUrl = shortUrlGenerator.generateShortUrl()
+            shortUrl = shortUrlGenerator.generateShortUrl(shortUrlLength)
         } while (urlMappingRepository.existsById(shortUrl))
         val urlMapping = UrlMapping(shortUrl = shortUrl, url = url, createdAt = LocalDateTime.now())
         urlMappingRepository.save(urlMapping)

@@ -5,5 +5,5 @@ interface ShortUrlGenerator {
     /**
      * Generate short url with given length.
      */
-    fun generateShortUrl(length: Int = 6): String
+    fun generateShortUrl(length: Int): String
 }

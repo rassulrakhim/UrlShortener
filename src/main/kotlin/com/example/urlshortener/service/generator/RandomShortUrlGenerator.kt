@@ -9,12 +9,14 @@ import java.security.SecureRandom
 @Primary
 class RandomShortUrlGenerator : ShortUrlGenerator {
 
-    private val chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    companion object {
+        private const val CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    }
     private val random = SecureRandom()
 
     override fun generateShortUrl(length: Int): String {
         val url = (1..length)
-            .map { chars[random.nextInt(chars.length)] }
+            .map { CHARS[random.nextInt(CHARS.length)] }
             .joinToString("")
         return url
     }
