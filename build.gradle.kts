@@ -84,9 +84,9 @@ tasks.register<Test>("integrationTest") {
 }
 
 detekt {
-    toolVersion = detektVersion // should match plugin version
-    buildUponDefaultConfig = true // use detekt default rules as base
-    allRules = false // enable all rules or keep false to avoid too many errors
+    toolVersion = detektVersion
+    buildUponDefaultConfig = true
+    allRules = false
     parallel = true
 }
 
