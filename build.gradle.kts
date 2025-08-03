@@ -19,6 +19,21 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    val test by getting {
+        kotlin.srcDirs("src/test/unit/kotlin")
+        resources.srcDirs("src/test/unit/resources")
+    }
+
+    create("integrationTest") {
+        kotlin.srcDir("src/test/integration/kotlin")
+        resources.srcDir("src/test/integration/resources")
+        compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+        runtimeClasspath += output + compileClasspath
+    }
+}
+val testcontainersVersion = "1.19.0"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -33,6 +48,11 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // for integration tests:
+    testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
+    testImplementation("org.testcontainers:postgresql:$testcontainersVersion")
+    testImplementation("org.testcontainers:testcontainers:$testcontainersVersion")
 }
 
 kotlin {
@@ -44,3 +64,17 @@ kotlin {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+
+tasks.register<Test>("integrationTest") {
+    description = "Runs integration tests"
+    group = "verification"
+
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+
+    useJUnitPlatform()
+    shouldRunAfter(tasks.test)
+}
+
+

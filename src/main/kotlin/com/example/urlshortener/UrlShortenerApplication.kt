@@ -7,8 +7,8 @@ import org.springframework.cache.annotation.EnableCaching
 
 @SpringBootApplication
 @EnableCaching
-class UrlShortener
+class UrlShortenerApplication
 
 fun main(args: Array<String>) {
-    runApplication<UrlShortener>(*args)
+    runApplication<UrlShortenerApplication>(*args)
 }
