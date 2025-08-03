@@ -1,11 +1,25 @@
 spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/urlshortener}
-    username: ${SPRING_DATASOURCE_USERNAME:posgtres}
-    password: ${SPRING_DATASOURCE_PASSWORD:posgtres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+url-shortener:
+  api-path: /api/url
+  short-url-length: 6
+  cache-ttl-minutes: 10
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,caches
+  endpoint:
+    caches:
+      enabled: true

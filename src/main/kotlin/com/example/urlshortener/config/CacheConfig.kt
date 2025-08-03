@@ -1,5 +1,6 @@
 package com.example.urlshortener.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
@@ -11,16 +12,12 @@ import java.time.Duration
 
 @Configuration
 @EnableCaching
-class CacheConfig {
-
-    companion object {
-        const val TTL: Long = 10
-    }
+class CacheConfig(@Value("\${url-shortener.cache-ttl-minutes}") private val cacheTTLMinutes: Long) {
 
     @Bean
     fun cacheManager(redisConnectionFactory: RedisConnectionFactory): CacheManager {
         val cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
-            .entryTtl(Duration.ofMinutes(TTL)) //
+            .entryTtl(Duration.ofMinutes(cacheTTLMinutes)) //
             .disableCachingNullValues()
         return RedisCacheManager.builder(redisConnectionFactory)
             .cacheDefaults(cacheConfig)

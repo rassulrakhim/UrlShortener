@@ -17,12 +17,5 @@ spring:
       host: localhost
       port: 6379
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,caches  # add caches here
-  endpoint:
-    caches:
-      enabled: true
+
 
